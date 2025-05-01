@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BaronBeyi | Premium Bahis Rehberi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0a0a0a;
+            --secondary: #121212;
+            --accent: #00ff9d;
+            --accent-dark: #00cc7d;
+            --text: #ffffff;
+            --text-light: #b0b0b0;
+            --card-bg: rgba(30, 30, 30, 0.6);
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            background-color: var(--primary);
+            color: var(--text);
+            background-image: 
+                radial-gradient(at 80% 20%, rgba(0, 255, 157, 0.15) 0px, transparent 50%),
+                radial-gradient(at 20% 80%, rgba(0, 157, 255, 0.15) 0px, transparent 50%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--secondary);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 10px;
+        }
+        
+        .logo {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            z-index: 100;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            mix-blend-mode: screen;
+        }
+        
+        .logo span {
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 30px;
+        }
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 700px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 72px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            background: linear-gradient(to right, var(--accent), #00e0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
+        }
+        
+        .hero p {
+            font-size: 20px;
+            line-height: 1.6;
+            color: var(--text-light);
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+        
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            background: var(--accent);
+            color: var(--primary);
+            padding: 18px 36px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 18px;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0, 255, 157, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button i {
+            margin-right: 10px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 255, 157, 0.4);
+            background: var(--accent-dark);
+        }
+        
+        .section-title {
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 3px;
+        }
+        
+        .section-title p {
+            color: var(--text-light);
+            font-size: 18px;
+            max-width: 600px;
+        }
+        
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.5s;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 255, 157, 0.1) 0%, rgba(0, 157, 255, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card:hover::before {
+            opacity: 1;
+        }
+        
+        .card-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--accent);
+            color: var(--primary);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            z-index: 2;
+        }
+        
+        .card-image {
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .card:hover .card-image img {
+            transform: scale(1.1);
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
+        .card-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+        
+        .card-description {
+            color: var(--text-light);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .card-button {
+            display: inline-flex;
+            align-items: center;
+            background: var(--accent);
+            color: var(--primary);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .card-button i {
+            margin-left: 8px;
+            font-size: 12px;
+        }
+        
+        .card-button:hover {
+            background: var(--accent-dark);
+            transform: translateX(5px);
+        }
+        
+        .floating {
+            position: absolute;
+            z-index: 1;
+            opacity: 0.8;
+        }
+        
+        .floating-1 {
+            top: 20%;
+            left: 10%;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            filter: blur(30px);
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .floating-2 {
+            bottom: 15%;
+            right: 10%;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, #00e0ff 0%, transparent 70%);
+            filter: blur(40px);
+            animation: float 10s ease-in-out infinite reverse;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 60px;
+            }
+            
+            .section-title h2 {
+                font-size: 36px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 48px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .section-title h2 {
+                font-size: 32px;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .cta-button {
+                padding: 15px 25px;
+                font-size: 16px;
+            }
+            
+            .section-title h2 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating floating-1"></div>
+    <div class="floating floating-2"></div>
+    
+    <div class="logo">BARON<span>BEYI</span></div>
+    
+    <div class="container">
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Bahisin Ultra Premium Rehberi</h1>
+                <p>En güvenilir bahis siteleri, en yüksek bonuslar ve özel promosyonlar tek bir yerde. BaronBeyi farkıyla bahis deneyiminizi üst seviyeye taşıyın.</p>
+                <button class="cta-button"><i class="fas fa-arrow-down"></i> Keşfetmeye Başla</button>
+            </div>
+        </section>
+        
+        <section>
+            <div class="section-title">
+                <h2>Özel Seçkiler</h2>
+                <p>BaronBeyi ekibi tarafından özenle seçilmiş premium bahis deneyimleri</p>
+            </div>
+            
+            <div class="cards-grid">
+                <!-- Site 1 -->
+                <div class="card">
+                    <div class="card-badge">PREMIUM</div>
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1639751197799-8c5af1e26b1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="NexusBet">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">NexusBet</h3>
+                        <p class="card-description">1000 TL'ye kadar %150 bonus ve özel VIP programı ile bahis dünyasının zirvesi.</p>
+                        <a href="#" class="card-button">Hemen Katıl <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Site 2 -->
+                <div class="card">
+                    <div class="card-badge">YENİ</div>
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1638913974023-cef988e81629?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="QuantumCasino">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">QuantumCasino</h3>
+                        <p class="card-description">500 TL deneme bonusu ve her hafta %50 cashback ile sınırsız kazanç fırsatı.</p>
+                        <a href="#" class="card-button">Hemen Katıl <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Site 3 -->
+                <div class="card">
+                    <div class="card-badge">EXCLUSIVE</div>
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1593118247619-e2d6f056869e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="ApexBet">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">ApexBet</h3>
+                        <p class="card-description">BaronBeyi özel: 300 TL hoşgeldin bonusu ve 50 ücretsiz dönüş sadece sizin için.</p>
+                        <a href="#" class="card-button">Hemen Katıl <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- VIP Section -->
+        <section>
+            <div class="section-title">
+                <h2>VIP Deneyimler</h2>
+                <p>Yüksek limitli oyunlar ve özel VIP hizmetleri sunan seçkin bahis siteleri</p>
+            </div>
+            
+            <div class="cards-grid">
+                <!-- Site 1 -->
+                <div class="card">
+                    <div class="card-badge">LIMITLESS</div>
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="InfinityBet">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">InfinityBet</h3>
+                        <p class="card-description">Sınırsız bahis limitleri ve kişisel butler hizmeti ile eşsiz bir VIP deneyimi.</p>
+                        <a href="#" class="card-button">Hemen Katıl <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Site 2 -->
+                <div class="card">
+                    <div class="card-badge">ELITE</div>
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1560957125-9ed4b6a0c833?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="RoyalVIP">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">RoyalVIP</h3>
+                        <p class="card-description">Özel jet organizasyonları ve lüks tatil çekilişleri ile premium üyelik.</p>
+                        <a href="#" class="card-button">Hemen Katıl <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Site 3 -->
+                <div class="card">
+                    <div class="card-badge">BLACK</div>
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1620052581237-5d36667be337?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="BlackCard">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">BlackCard Club</h3>
+                        <p class="card-description">Davetiyeye özel üyelik ve 1M TL'ye kadar özel kredi imkanı.</p>
+                        <a href="#" class="card-button">Hemen Katıl <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.querySelector('.cta-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector('.section-title').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        });
+        
+        const floaters = document.querySelectorAll('.floating');
+        floaters.forEach((floater, index) => {
+            floater.style.animationDelay = `${index * 2}s`;
+        });
+
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const x = e.clientX - card.getBoundingClientRect().left;
+                const y = e.clientY - card.getBoundingClientRect().top;
+                
+                const centerX = card.offsetWidth / 2;
+                const centerY = card.offsetHeight / 2;
+                
+                const angleX = (y - centerY) / 20;
+                const angleY = (centerX - x) / 20;
+                
+                card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>

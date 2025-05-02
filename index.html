@@ -10,9 +10,9 @@
         :root {
             --primary: #0a0a0a;
             --secondary: #121212;
-            --accent: #9d00ff; /* Mor accent rengi */
-            --accent-dark: #7d00cc; /* Mor için koyu ton */
-            --accent-alt: #5b65ff; /* Mor/mavi alternatif accent */
+            --accent: #9d00ff;
+            --accent-dark: #7d00cc; 
+            --accent-alt: #5b65ff;
             --text: #ffffff;
             --text-light: #b0b0b0;
             --card-bg: rgba(30, 30, 30, 0.6);
@@ -873,12 +873,11 @@
 </head>
 <body>
     <div class="particles" id="particles"></div>
-    
     <div class="floating floating-1"></div>
     <div class="floating floating-2"></div>
     <div class="floating floating-3"></div>
     
-    <!-- Navigation -->
+    <!-- Menu -->
     <nav class="navbar">
         <a href="#" class="logo">BARON<span>BEYI</span></a>
         <div class="nav-links">
@@ -901,22 +900,25 @@
         </section>
 
 
+        <!-- VIP BOLUMU-->
+
         <section id="vip-deneyimler" class="section">
             <div class="section-title">
-                <h2>VIP Deneyimler</h2>
+                <h2>VIP Sponsorlar</h2>
                 <p>Yüksek limitli oyunlar ve özel VIP hizmetleri sunan seçkin bahis siteleri</p>
             </div>
             
             <div class="cards-grid">
+                
                 <!-- Site 1 -->
                 <div class="card" data-delay="0">
                     <div class="card-badge">LIMITLESS</div>
                     <div class="card-image">
-                        <img src="photo_5814606238510597847_y.jpg" alt="InfinityBet">
+                        <img src="/api/placeholder/800/450" alt="InfinityBet">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">OnWin</h3>
-                        <p class="card-description">750 TL DENEME BONUSU | İLK 3 YATIRIMA 36.000 TL HOŞ GELDİN BONUSU | HER GÜN 100.000 TL SADAKAT BONUSU | SINIRSIZ VE ANINDA ÇEKİM İMKANI</p>
+                        <h3 class="card-title">InfinityBet</h3>
+                        <p class="card-description">Sınırsız bahis limitleri ve kişisel butler hizmeti ile eşsiz bir VIP deneyimi.</p>
                         <a href="#" class="card-button">Hemen Katıl <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
@@ -950,9 +952,11 @@
         </section>
 
         
+        <!-- Ozel Sponsor BOLUMU-->
+
         <section id="ozel-secimler" class="section">
             <div class="section-title">
-                <h2>Özel Seçkiler</h2>
+                <h2>Özel Sponsorlar</h2>
                 <p>BaronBeyi ekibi tarafından özenle seçilmiş premium bahis deneyimleri</p>
             </div>
             
@@ -1098,12 +1102,10 @@
         
     </div>
     
-    <!-- Back to Top Button -->
     <div class="back-to-top">
         <i class="fas fa-arrow-up"></i>
     </div>
     
-    <!-- Explosion Element -->
     <div class="explosion" id="explosion"></div>
 
     <div class="contact-floating">
@@ -1124,54 +1126,43 @@
 
     <script>
 
-        // JS Kısmı (mobil dokunmatik destek için)
         document.querySelector('.contact-button').addEventListener('click', function() {
         const popup = document.querySelector('.contact-popup');
         popup.style.display = popup.style.display === 'flex' ? 'none' : 'flex';
         });
 
-        // Dışarı tıklayınca kapatma
         document.addEventListener('click', function(e) {
         if (!e.target.closest('.contact-floating')) {
             document.querySelector('.contact-popup').style.display = 'none';
         }
         });
 
-        // Ziyaretçi sayacı
-        let visitorCount = 100; // Başlangıç değeri
+        let visitorCount = 5000;
         const visitorElement = document.querySelector('.stat-number[data-count="12"]');
 
-        // Saat başı kontrolü
         function checkHourlyUpdate() {
             const now = new Date();
             const currentMinutes = now.getMinutes();
             const currentSeconds = now.getSeconds();
             
-            // Bir sonraki saat başına kalan milisaniye
             const msUntilNextHour = (60 - currentMinutes) * 60000 - currentSeconds * 1000;
             
             setTimeout(function() {
-                updateVisitorCounter(); // Saat başında çalıştır
-                setInterval(updateVisitorCounter, 3600000); // Sonra her saatte bir tekrarla
+                updateVisitorCounter(); 
+                setInterval(updateVisitorCounter, 3600000);
             }, msUntilNextHour);
         }
 
-        // Sayacı güncelleme fonksiyonu
         function updateVisitorCounter() {
             visitorCount += 10;
             visitorElement.textContent = visitorCount;
             visitorElement.setAttribute('data-count', visitorCount);
             
-            // Sunucuya veya localStorage'a kaydetmek isterseniz:
-            // localStorage.setItem('visitorCount', visitorCount.toString());
         }
 
-        // Sayfa yüklendiğinde kontrolü başlat
         window.addEventListener('load', function() {
-            // localStorage'dan eski değeri okumayacağız (yenilemede artmasın diye)
             checkHourlyUpdate();
         });
-        // Navbar Scroll Effect
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar');
             const backToTop = document.querySelector('.back-to-top');
@@ -1188,11 +1179,9 @@
                 backToTop.classList.remove('visible');
             }
             
-            // Animate elements when they come into view
             animateOnScroll();
         });
         
-        // Mobile Menu
         const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
         const closeMenu = document.querySelector('.close-menu');
         const navLinks = document.querySelector('.nav-links');
@@ -1205,7 +1194,6 @@
             navLinks.classList.remove('active');
         });
         
-        // Smooth Scrolling for Navigation Links
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -1219,17 +1207,14 @@
                         behavior: 'smooth'
                     });
                     
-                    // Close mobile menu if open
                     navLinks.classList.remove('active');
                     
-                    // Update active link
                     document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
                     this.classList.add('active');
                 }
             });
         });
         
-        // Back to Top Button
         document.querySelector('.back-to-top').addEventListener('click', function() {
             window.scrollTo({
                 top: 0,
@@ -1237,22 +1222,19 @@
             });
         });
         
-        // CTA Button Scroll
         document.querySelector('.cta-button').addEventListener('click', function(e) {
             e.preventDefault();
             
-            // Create explosion effect
             createExplosion(e);
             
             setTimeout(() => {
-                document.getElementById('ozel-secimler').scrollIntoView({ 
+                document.getElementById('vip-deneyimler').scrollIntoView({ 
                     behavior: 'smooth',
                     block: 'start'
                 });
             }, 500);
         });
         
-        // Animate elements when they come into view
         function animateOnScroll() {
             const elements = document.querySelectorAll('.section-title, .card, .stat-item, .testimonial');
             
@@ -1269,15 +1251,13 @@
             });
         }
         
-        // Initialize animations
         window.addEventListener('load', function() {
             animateOnScroll();
             
-            // Counter Animation for Stats
             const statNumbers = document.querySelectorAll('.stat-number');
             statNumbers.forEach(statNumber => {
                 const target = parseInt(statNumber.getAttribute('data-count'));
-                const duration = 2000; // 2 seconds
+                const duration = 2000; 
                 const increment = target / (duration / 16);
                 let current = 0;
                 
@@ -1291,7 +1271,6 @@
                     }
                 }
                 
-                // Start counter when element is in view
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
@@ -1307,7 +1286,6 @@
             });
         });
         
-        // Create particles
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
             const particleCount = 50;
@@ -1316,30 +1294,24 @@
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
                 
-                // Random size between 1-4px
                 const size = Math.random() * 3 + 1;
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
                 
-                // Random color
                 const colors = ['#00ff9d', '#00e0ff', '#9c00ff'];
                 const color = colors[Math.floor(Math.random() * colors.length)];
                 particle.style.background = color;
                 
-                // Random position
                 const posX = Math.random() * window.innerWidth;
                 particle.style.left = `${posX}px`;
                 particle.style.bottom = `-${size}px`;
                 
-                // Random horizontal movement
                 const tx = (Math.random() - 0.5) * 100;
                 particle.style.setProperty('--tx', `${tx}px`);
                 
-                // Random animation duration
                 const duration = Math.random() * 15 + 10;
                 particle.style.animationDuration = `${duration}s`;
                 
-                // Random delay
                 const delay = Math.random() * 5;
                 particle.style.animationDelay = `${delay}s`;
                 
@@ -1347,20 +1319,16 @@
             }
         }
         
-        // Create Explosion Effect
         function createExplosion(e) {
             const explosion = document.getElementById('explosion');
             const button = e.currentTarget;
             const buttonRect = button.getBoundingClientRect();
             
-            // Set the explosion position to the button's center
             explosion.style.left = `${buttonRect.left + buttonRect.width / 2}px`;
             explosion.style.top = `${buttonRect.top + buttonRect.height / 2}px`;
             
-            // Clear previous particles
             explosion.innerHTML = '';
             
-            // Create the explosion particles
             const particleCount = 30;
             const colors = ['#00ff9d', '#00e0ff', '#ffffff'];
             
@@ -1368,16 +1336,13 @@
                 const particle = document.createElement('div');
                 particle.classList.add('explosion-particle');
                 
-                // Random size
                 const size = Math.random() * 8 + 2;
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
                 
-                // Random color
                 const color = colors[Math.floor(Math.random() * colors.length)];
                 particle.style.background = color;
                 
-                // Random direction
                 const angle = Math.random() * Math.PI * 2;
                 const distance = Math.random() * 100 + 50;
                 const tx = Math.cos(angle) * distance;
@@ -1389,25 +1354,20 @@
                 explosion.appendChild(particle);
             }
             
-            // Show the explosion
             explosion.style.opacity = 1;
             
-            // Hide after animation completes
             setTimeout(() => {
                 explosion.style.opacity = 0;
             }, 1000);
         }
         
-        // Run particle effect
         createParticles();
         
-        // Handle window resize
         window.addEventListener('resize', () => {
             document.getElementById('particles').innerHTML = '';
             createParticles();
         });
         
-        // Add hover effect for 3D card tilt
         document.querySelectorAll('.card').forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 const x = e.clientX - card.getBoundingClientRect().left;

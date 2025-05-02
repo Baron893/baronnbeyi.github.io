@@ -5,16 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BaronBeyi | Premium Bahis Rehberi</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
         :root {
             --primary: #0a0a0a;
             --secondary: #121212;
-            --accent: #00ff9d;
-            --accent-dark: #00cc7d;
+            --accent: #9d00ff; /* Mor accent rengi */
+            --accent-dark: #7d00cc; /* Mor için koyu ton */
+            --accent-alt: #5b65ff; /* Mor/mavi alternatif accent */
             --text: #ffffff;
             --text-light: #b0b0b0;
             --card-bg: rgba(30, 30, 30, 0.6);
             --glass: rgba(255, 255, 255, 0.05);
+            --menu-bg: rgba(15, 15, 15, 0.8);
         }
         
         * {
@@ -24,18 +27,23 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
         
+        html {
+            scroll-behavior: smooth;
+        }
+        
         body {
             background-color: var(--primary);
             color: var(--text);
             background-image: 
-                radial-gradient(at 80% 20%, rgba(0, 255, 157, 0.15) 0px, transparent 50%),
-                radial-gradient(at 20% 80%, rgba(0, 157, 255, 0.15) 0px, transparent 50%);
+                radial-gradient(at 80% 20%, rgba(157, 0, 255, 0.15) 0px, transparent 50%),
+                radial-gradient(at 20% 80%, rgba(91, 101, 255, 0.15) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(135, 0, 255, 0.08) 0px, transparent 70%);
             min-height: 100vh;
             overflow-x: hidden;
         }
         
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
         }
         
         ::-webkit-scrollbar-track {
@@ -48,27 +56,92 @@
         }
         
         .logo {
-            position: fixed;
-            top: 30px;
-            left: 30px;
-            z-index: 100;
             font-size: 28px;
             font-weight: 800;
             color: var(--accent);
             display: flex;
             align-items: center;
             mix-blend-mode: screen;
+            text-decoration: none;
         }
         
         .logo span {
             display: inline-block;
+            background: linear-gradient(to right, var(--accent), var(--accent-alt));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             animation: pulse 2s infinite;
         }
         
         @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.7; }
-            100% { opacity: 1; }
+            0% { opacity: 1; filter: brightness(1); }
+            50% { opacity: 0.7; filter: brightness(1.2); }
+            100% { opacity: 1; filter: brightness(1); }
+        }
+        
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 40px;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s;
+            backdrop-filter: blur(0px);
+        }
+        
+        .navbar.scrolled {
+            background: var(--menu-bg);
+            padding: 15px 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(20px);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-link {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            padding: 5px 0;
+            transition: all 0.3s;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--accent);
+        }
+        
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 24px;
+            cursor: pointer;
         }
         
         .container {
@@ -82,12 +155,23 @@
             display: flex;
             align-items: center;
             position: relative;
+            overflow: hidden;
         }
         
         .hero-content {
             max-width: 700px;
             position: relative;
             z-index: 2;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards 0.3s;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .hero h1 {
@@ -95,10 +179,10 @@
             font-weight: 800;
             line-height: 1.1;
             margin-bottom: 30px;
-            background: linear-gradient(to right, var(--accent), #00e0ff);
+            background: linear-gradient(to right, var(--accent), var(--accent-alt));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
+            text-shadow: 0 0 20px rgba(157, 0, 255, 0.3);
         }
         
         .hero p {
@@ -120,24 +204,58 @@
             font-size: 18px;
             text-decoration: none;
             transition: all 0.3s;
-            box-shadow: 0 10px 30px rgba(0, 255, 157, 0.3);
+            box-shadow: 0 10px 30px rgba(157, 0, 255, 0.3);
             border: none;
             cursor: pointer;
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
         }
         
         .cta-button i {
             margin-right: 10px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, var(--accent-dark), var(--accent-alt));
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: -1;
         }
         
         .cta-button:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 255, 157, 0.4);
-            background: var(--accent-dark);
+            box-shadow: 0 15px 40px rgba(157, 0, 255, 0.4);
+        }
+        
+        .cta-button:hover::before {
+            opacity: 1;
+        }
+        
+        .section {
+            padding: 120px 0;
+            position: relative;
         }
         
         .section-title {
             margin-bottom: 60px;
             position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s;
+        }
+        
+        .section-title.animate {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .section-title h2 {
@@ -146,6 +264,9 @@
             margin-bottom: 15px;
             position: relative;
             display: inline-block;
+            background: linear-gradient(to right, var(--text), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
         .section-title h2::after {
@@ -182,6 +303,14 @@
             border: 1px solid var(--glass);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.5s;
+        }
+        
+        .card.animate {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .card::before {
@@ -191,13 +320,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(0, 255, 157, 0.1) 0%, rgba(0, 157, 255, 0.1) 100%);
+            background: linear-gradient(135deg, rgba(157, 0, 255, 0.1) 0%, rgba(91, 101, 255, 0.1) 100%);
             opacity: 0;
             transition: opacity 0.3s;
+            z-index: 1;
         }
         
         .card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-10px) scale(1.02);
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
         }
         
@@ -216,10 +346,11 @@
             font-size: 12px;
             font-weight: 700;
             z-index: 2;
+            box-shadow: 0 5px 15px rgba(157, 0, 255, 0.3);
         }
         
         .card-image {
-            height: 180px;
+            height: 200px;
             overflow: hidden;
             position: relative;
         }
@@ -237,6 +368,8 @@
         
         .card-content {
             padding: 25px;
+            position: relative;
+            z-index: 2;
         }
         
         .card-title {
@@ -264,48 +397,299 @@
             font-size: 14px;
             text-decoration: none;
             transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
         }
         
         .card-button i {
             margin-left: 8px;
             font-size: 12px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .card-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(to right, var(--accent-dark), var(--accent-alt));
+            transition: width 0.3s;
+            z-index: 1;
+        }
+        
+        .card-button:hover::before {
+            width: 100%;
         }
         
         .card-button:hover {
-            background: var(--accent-dark);
             transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(157, 0, 255, 0.3);
         }
         
+        /* Floating Elements */
         .floating {
             position: absolute;
             z-index: 1;
-            opacity: 0.8;
+            border-radius: 50%;
+            filter: blur(50px);
+            opacity: 0.6;
         }
         
         .floating-1 {
-            top: 20%;
+            top: 15%;
             left: 10%;
-            width: 100px;
-            height: 100px;
+            width: 300px;
+            height: 300px;
             background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
-            filter: blur(30px);
-            animation: float 8s ease-in-out infinite;
+            animation: float 15s ease-in-out infinite;
         }
         
         .floating-2 {
             bottom: 15%;
             right: 10%;
-            width: 150px;
-            height: 150px;
-            background: radial-gradient(circle, #00e0ff 0%, transparent 70%);
-            filter: blur(40px);
-            animation: float 10s ease-in-out infinite reverse;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--accent-alt) 0%, transparent 70%);
+            animation: float 18s ease-in-out infinite reverse;
+        }
+        
+        .floating-3 {
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(156, 0, 255, 0.5) 0%, transparent 70%);
+            animation: float 12s ease-in-out infinite 2s;
         }
         
         @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-            100% { transform: translateY(0) rotate(0deg); }
+            0% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -50px) rotate(5deg); }
+            66% { transform: translate(-30px, 20px) rotate(-5deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+        
+        /* Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleAnimation linear infinite;
+        }
+        
+        @keyframes particleAnimation {
+            0% {
+                opacity: 0;
+                transform: translateY(0) translateX(0);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(calc(-100vh - 100px)) translateX(var(--tx));
+            }
+        }
+        
+        /* Explosion Animation */
+        .explosion {
+            position: absolute;
+            z-index: 2;
+            pointer-events: none;
+            opacity: 0;
+        }
+        
+        .explosion-particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: explode 0.8s ease-out forwards;
+        }
+        
+        @keyframes explode {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(0);
+            }
+        }
+        
+        /* Add a statistics section */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .stat-item {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass);
+            transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .stat-item.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, var(--accent), var(--accent-alt));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .stat-label {
+            color: var(--text-light);
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding: 20px 0;
+            scroll-snap-type: x mandatory;
+            margin-bottom: 50px;
+        }
+        
+        .testimonials::-webkit-scrollbar {
+            height: 6px;
+        }
+        
+        .testimonial {
+            flex: 0 0 auto;
+            width: 350px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass);
+            scroll-snap-align: start;
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.5s;
+        }
+        
+        .testimonial.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .testimonial-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .testimonial-text::before {
+            content: '"';
+            font-size: 60px;
+            color: var(--accent);
+            position: absolute;
+            top: -30px;
+            left: -10px;
+            opacity: 0.3;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .testimonial-author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+        
+        .testimonial-author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .testimonial-author-info h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .testimonial-author-info p {
+            font-size: 14px;
+            color: var(--accent);
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(157, 0, 255, 0.3);
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            background: var(--accent-dark);
         }
         
         /* Responsive Design */
@@ -317,9 +701,52 @@
             .section-title h2 {
                 font-size: 36px;
             }
+            
+            .stat-number {
+                font-size: 40px;
+            }
         }
         
         @media (max-width: 768px) {
+            .navbar {
+                padding: 20px;
+            }
+            
+            .navbar.scrolled {
+                padding: 15px 20px;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -300px;
+                width: 300px;
+                height: 100vh;
+                background: var(--menu-bg);
+                flex-direction: column;
+                padding: 80px 40px;
+                transition: right 0.3s;
+                backdrop-filter: blur(20px);
+            }
+            
+            .nav-links.active {
+                right: 0;
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                z-index: 1001;
+            }
+            
+            .close-menu {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                font-size: 24px;
+                cursor: pointer;
+            }
+            
             .hero h1 {
                 font-size: 48px;
             }
@@ -334,6 +761,10 @@
             
             .cards-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr 1fr;
             }
         }
         
@@ -354,25 +785,47 @@
             .section-title h2 {
                 font-size: 28px;
             }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .testimonial {
+                width: 85vw;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="particles" id="particles"></div>
+    
     <div class="floating floating-1"></div>
     <div class="floating floating-2"></div>
+    <div class="floating floating-3"></div>
     
-    <div class="logo">BARON<span>BEYI</span></div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="#" class="logo">BARON<span>BEYI</span></a>
+        <div class="nav-links">
+            <a href="#ozel-secimler" class="nav-link">Özel Seçimler</a>
+            <a href="#vip-deneyimler" class="nav-link">VIP Deneyimler</a>
+            <a href="#istatistikler" class="nav-link">İstatistikler</a>
+            <a href="#yorumlar" class="nav-link">Kullanıcı Yorumları</a>
+            <span class="close-menu"><i class="fas fa-times"></i></span>
+        </div>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </nav>
     
-    <div class="container">
+    <div id="top" class="container">
         <section class="hero">
             <div class="hero-content">
                 <h1>Bahisin Ultra Premium Rehberi</h1>
                 <p>En güvenilir bahis siteleri, en yüksek bonuslar ve özel promosyonlar tek bir yerde. BaronBeyi farkıyla bahis deneyiminizi üst seviyeye taşıyın.</p>
-                <button class="cta-button"><i class="fas fa-arrow-down"></i> Keşfetmeye Başla</button>
+                <button class="cta-button" id="explode-btn"><i class="fas fa-arrow-down"></i> Keşfetmeye Başla</button>
             </div>
         </section>
         
-        <section>
+        <section id="ozel-secimler" class="section">
             <div class="section-title">
                 <h2>Özel Seçkiler</h2>
                 <p>BaronBeyi ekibi tarafından özenle seçilmiş premium bahis deneyimleri</p>
@@ -380,10 +833,10 @@
             
             <div class="cards-grid">
                 <!-- Site 1 -->
-                <div class="card">
+                <div class="card" data-delay="0">
                     <div class="card-badge">PREMIUM</div>
                     <div class="card-image">
-                        <img src="https://images.unsplash.com/photo-1639751197799-8c5af1e26b1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="NexusBet">
+                        <img src="/api/placeholder/800/450" alt="NexusBet">
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">NexusBet</h3>
@@ -393,10 +846,10 @@
                 </div>
                 
                 <!-- Site 2 -->
-                <div class="card">
+                <div class="card" data-delay="100">
                     <div class="card-badge">YENİ</div>
                     <div class="card-image">
-                        <img src="https://images.unsplash.com/photo-1638913974023-cef988e81629?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="QuantumCasino">
+                        <img src="/api/placeholder/800/450" alt="QuantumCasino">
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">QuantumCasino</h3>
@@ -406,10 +859,10 @@
                 </div>
                 
                 <!-- Site 3 -->
-                <div class="card">
+                <div class="card" data-delay="200">
                     <div class="card-badge">EXCLUSIVE</div>
                     <div class="card-image">
-                        <img src="https://images.unsplash.com/photo-1593118247619-e2d6f056869e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="ApexBet">
+                        <img src="/api/placeholder/800/450" alt="ApexBet">
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">ApexBet</h3>
@@ -421,7 +874,7 @@
         </section>
         
         <!-- VIP Section -->
-        <section>
+        <section id="vip-deneyimler" class="section">
             <div class="section-title">
                 <h2>VIP Deneyimler</h2>
                 <p>Yüksek limitli oyunlar ve özel VIP hizmetleri sunan seçkin bahis siteleri</p>
@@ -429,10 +882,10 @@
             
             <div class="cards-grid">
                 <!-- Site 1 -->
-                <div class="card">
+                <div class="card" data-delay="0">
                     <div class="card-badge">LIMITLESS</div>
                     <div class="card-image">
-                        <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="InfinityBet">
+                        <img src="/api/placeholder/800/450" alt="InfinityBet">
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">InfinityBet</h3>
@@ -442,10 +895,10 @@
                 </div>
                 
                 <!-- Site 2 -->
-                <div class="card">
+                <div class="card" data-delay="100">
                     <div class="card-badge">ELITE</div>
                     <div class="card-image">
-                        <img src="https://images.unsplash.com/photo-1560957125-9ed4b6a0c833?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="RoyalVIP">
+                        <img src="/api/placeholder/800/450" alt="RoyalVIP">
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">RoyalVIP</h3>
@@ -455,10 +908,10 @@
                 </div>
                 
                 <!-- Site 3 -->
-                <div class="card">
+                <div class="card" data-delay="200">
                     <div class="card-badge">BLACK</div>
                     <div class="card-image">
-                        <img src="https://images.unsplash.com/photo-1620052581237-5d36667be337?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="BlackCard">
+                        <img src="/api/placeholder/800/450" alt="BlackCard">
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">BlackCard Club</h3>
@@ -468,23 +921,352 @@
                 </div>
             </div>
         </section>
+        
+        <!-- Statistics Section -->
+        <section id="istatistikler" class="section">
+            <div class="section-title">
+                <h2>İstatistikler</h2>
+                <p>Premium bahis deneyiminde rakamlarla BaronBeyi farkı</p>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-item" data-delay="0">
+                    <div class="stat-number" data-count="12">0</div>
+                    <div class="stat-label">Güvenilir Bahis Sitesi</div>
+                </div>
+                <div class="stat-item" data-delay="100">
+                    <div class="stat-number" data-count="98">0</div>
+                    <div class="stat-label">Memnun Müşteri (%)</div>
+                </div>
+                <div class="stat-item" data-delay="200">
+                    <div class="stat-number" data-count="5">0</div>
+                    <div class="stat-label">Yıllık Tecrübe</div>
+                </div>
+                <div class="stat-item" data-delay="300">
+                    <div class="stat-number" data-count="24">0</div>
+                    <div class="stat-label">Saat Destek</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Testimonials Section -->
+        <section id="yorumlar" class="section">
+            <div class="section-title">
+                <h2>Kullanıcı Yorumları</h2>
+                <p>BaronBeyi tavsiyelerini takip eden kullanıcıların deneyimleri</p>
+            </div>
+            
+            <div class="testimonials">
+                <div class="testimonial" data-delay="0">
+                    <div class="testimonial-text">
+                        BaronBeyi sayesinde artık sadece güvenilir sitelerde oynuyorum. Önerilen sitelerde hiçbir ödeme sorunu yaşamadım ve bonuslar gerçekten harika!
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-author-avatar">
+                            <img src="/api/placeholder/100/100" alt="Avatar">
+                        </div>
+                        <div class="testimonial-author-info">
+                            <h4>Ahmet K.</h4>
+                            <p>Premium Üye</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial" data-delay="100">
+                    <div class="testimonial-text">
+                        VIP tavsiyeleri gerçekten değerli. Önerilen sitelerin sunduğu ekstra hizmetler sayesinde oyun deneyimim tamamen değişti. Teşekkürler BaronBeyi!
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-author-avatar">
+                            <img src="/api/placeholder/100/100" alt="Avatar">
+                        </div>
+                        <div class="testimonial-author-info">
+                            <h4>Mehmet S.</h4>
+                            <p>VIP Üye</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial" data-delay="200">
+                    <div class="testimonial-text">
+                        3 yıldır BaronBeyi'nin tavsiyelerini takip ediyorum. Şimdiye kadar hiç hayal kırıklığına uğramadım. En güvenilir bahis rehberi!
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-author-avatar">
+                            <img src="/api/placeholder/100/100" alt="Avatar">
+                        </div>
+                        <div class="testimonial-author-info">
+                            <h4>Ayşe Y.</h4>
+                            <p>Gold Üye</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial" data-delay="300">
+                    <div class="testimonial-text">
+                        Özel bonuslar ve promosyonlar için tek adresim burası. Hızlı çekim yapılan siteleri bulmanın en kolay yolu BaronBeyi rehberi.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-author-avatar">
+                            <img src="/api/placeholder/100/100" alt="Avatar">
+                        </div>
+                        <div class="testimonial-author-info">
+                            <h4>Burak T.</h4>
+                            <p>Elite Üye</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
+    
+    <!-- Back to Top Button -->
+    <div class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+    
+    <!-- Explosion Element -->
+    <div class="explosion" id="explosion"></div>
 
     <script>
-        document.querySelector('.cta-button').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.querySelector('.section-title').scrollIntoView({ 
-                behavior: 'smooth' 
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            const backToTop = document.querySelector('.back-to-top');
+            
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            if (window.scrollY > 500) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+            
+            // Animate elements when they come into view
+            animateOnScroll();
+        });
+        
+        // Mobile Menu
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const closeMenu = document.querySelector('.close-menu');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.add('active');
+        });
+        
+        closeMenu.addEventListener('click', function() {
+            navLinks.classList.remove('active');
+        });
+        
+        // Smooth Scrolling for Navigation Links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    navLinks.classList.remove('active');
+                    
+                    // Update active link
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                }
             });
         });
         
-        const floaters = document.querySelectorAll('.floating');
-        floaters.forEach((floater, index) => {
-            floater.style.animationDelay = `${index * 2}s`;
+        // Back to Top Button
+        document.querySelector('.back-to-top').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
-
-        const cards = document.querySelectorAll('.card');
-        cards.forEach(card => {
+        
+        // CTA Button Scroll
+        document.querySelector('.cta-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Create explosion effect
+            createExplosion(e);
+            
+            setTimeout(() => {
+                document.getElementById('ozel-secimler').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 500);
+        });
+        
+        // Animate elements when they come into view
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.section-title, .card, .stat-item, .testimonial');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    const delay = element.getAttribute('data-delay') || 0;
+                    setTimeout(() => {
+                        element.classList.add('animate');
+                    }, delay);
+                }
+            });
+        }
+        
+        // Initialize animations
+        window.addEventListener('load', function() {
+            animateOnScroll();
+            
+            // Counter Animation for Stats
+            const statNumbers = document.querySelectorAll('.stat-number');
+            statNumbers.forEach(statNumber => {
+                const target = parseInt(statNumber.getAttribute('data-count'));
+                const duration = 2000; // 2 seconds
+                const increment = target / (duration / 16);
+                let current = 0;
+                
+                function updateCounter() {
+                    if (current < target) {
+                        current += increment;
+                        statNumber.textContent = Math.ceil(current);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        statNumber.textContent = target;
+                    }
+                }
+                
+                // Start counter when element is in view
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            setTimeout(() => {
+                                updateCounter();
+                            }, parseInt(statNumber.parentElement.getAttribute('data-delay')) || 0);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                
+                observer.observe(statNumber);
+            });
+        });
+        
+        // Create particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size between 1-4px
+                const size = Math.random() * 3 + 1;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random color
+                const colors = ['#00ff9d', '#00e0ff', '#9c00ff'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.background = color;
+                
+                // Random position
+                const posX = Math.random() * window.innerWidth;
+                particle.style.left = `${posX}px`;
+                particle.style.bottom = `-${size}px`;
+                
+                // Random horizontal movement
+                const tx = (Math.random() - 0.5) * 100;
+                particle.style.setProperty('--tx', `${tx}px`);
+                
+                // Random animation duration
+                const duration = Math.random() * 15 + 10;
+                particle.style.animationDuration = `${duration}s`;
+                
+                // Random delay
+                const delay = Math.random() * 5;
+                particle.style.animationDelay = `${delay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Create Explosion Effect
+        function createExplosion(e) {
+            const explosion = document.getElementById('explosion');
+            const button = e.currentTarget;
+            const buttonRect = button.getBoundingClientRect();
+            
+            // Set the explosion position to the button's center
+            explosion.style.left = `${buttonRect.left + buttonRect.width / 2}px`;
+            explosion.style.top = `${buttonRect.top + buttonRect.height / 2}px`;
+            
+            // Clear previous particles
+            explosion.innerHTML = '';
+            
+            // Create the explosion particles
+            const particleCount = 30;
+            const colors = ['#00ff9d', '#00e0ff', '#ffffff'];
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('explosion-particle');
+                
+                // Random size
+                const size = Math.random() * 8 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random color
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.background = color;
+                
+                // Random direction
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 100 + 50;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                
+                particle.style.setProperty('--tx', `${tx}px`);
+                particle.style.setProperty('--ty', `${ty}px`);
+                
+                explosion.appendChild(particle);
+            }
+            
+            // Show the explosion
+            explosion.style.opacity = 1;
+            
+            // Hide after animation completes
+            setTimeout(() => {
+                explosion.style.opacity = 0;
+            }, 1000);
+        }
+        
+        // Run particle effect
+        createParticles();
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            document.getElementById('particles').innerHTML = '';
+            createParticles();
+        });
+        
+        // Add hover effect for 3D card tilt
+        document.querySelectorAll('.card').forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 const x = e.clientX - card.getBoundingClientRect().left;
                 const y = e.clientY - card.getBoundingClientRect().top;
@@ -495,11 +1277,11 @@
                 const angleX = (y - centerY) / 20;
                 const angleY = (centerX - x) / 20;
                 
-                card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg)`;
+                card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) translateY(-10px) scale(1.02)`;
             });
             
             card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+                card.style.transform = '';
             });
         });
     </script>

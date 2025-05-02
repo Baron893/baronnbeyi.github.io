@@ -869,6 +869,72 @@
         font-size: 14px;
         font-weight: 500;
         }
+
+        .card:hover {
+  position: relative;
+  overflow: hidden;
+}
+
+.card:hover::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    rgba(157, 0, 255, 0.1) 25%,
+    transparent 50%,
+    rgba(91, 101, 255, 0.1) 75%,
+    transparent 100%
+  );
+  animation: casinoLight 4s linear infinite;
+  z-index: 0;
+}
+
+@keyframes casinoLight {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes coinExplosion {
+  to {
+    transform: translate(var(--x), var(--y)) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.section-title h2 {
+  position: relative;
+  text-shadow: 0 0 10px #9d00ff, 
+               0 0 20px #9d00ff, 
+               0 0 30px #5b65ff;
+  animation: neonFlicker 2s infinite alternate;
+}
+
+@keyframes neonFlicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    text-shadow: 0 0 10px #9d00ff, 
+                 0 0 20px #9d00ff, 
+                 0 0 30px #5b65ff;
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+  }
+}
+
+@keyframes fallingCoin {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--end-x), 100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -897,6 +963,7 @@
                 <p>En güvenilir bahis siteleri, en yüksek bonuslar ve özel promosyonlar tek bir yerde. BaronBeyi farkıyla bahis deneyiminizi üst seviyeye taşıyın.</p>
                 <button class="cta-button" id="explode-btn"><i class="fas fa-arrow-down"></i> Keşfetmeye Başla</button>
             </div>
+            
         </section>
 
 
@@ -1386,6 +1453,65 @@
                 card.style.transform = '';
             });
         });
+
+document.querySelectorAll('.cta-button, .card-button').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    const explosion = document.createElement('div');
+    explosion.style.position = 'absolute';
+    explosion.style.pointerEvents = 'none';
+    
+    const rect = this.getBoundingClientRect();
+    explosion.style.left = `${rect.left + rect.width/2}px`;
+    explosion.style.top = `${rect.top + rect.height/2}px`;
+    
+    for (let i = 0; i < 15; i++) {
+      const coin = document.createElement('div');
+      coin.innerHTML = '💰';
+      coin.style.position = 'absolute';
+      coin.style.fontSize = `${20 + Math.random()*15}px`;
+      coin.style.animation = `coinExplosion ${1+Math.random()}s forwards`;
+      
+      const angle = Math.random() * Math.PI * 2;
+      const distance = 60 + Math.random() * 500;
+      coin.style.setProperty('--x', `${Math.cos(angle) * distance}px`);
+      coin.style.setProperty('--y', `${Math.sin(angle) * distance}px`);
+      
+      explosion.appendChild(coin);
+    }
+    
+    document.body.appendChild(explosion);
+    setTimeout(() => explosion.remove(), 1000);
+  });
+});
+
+function createCoinRain(amount = 30) {
+    const container = document.createElement('div');
+    container.style.position = 'fixed';
+    container.style.top = '0';
+    container.style.left = '0';
+    container.style.width = '100%';
+    container.style.height = '100%';
+    container.style.pointerEvents = 'none';
+    container.style.zIndex = '1000';
+    
+    for (let i = 0; i < amount; i++) {
+        const coin = document.createElement('div');
+        coin.innerHTML = '💰';
+        coin.style.position = 'absolute';
+        coin.style.fontSize = `${20 + Math.random() * 15}px`;
+        coin.style.left = `${Math.random() * 100}vw`;
+        coin.style.top = '-50px';
+        coin.style.animation = `fallingCoin ${2 + Math.random() * 3}s linear forwards`;
+        coin.style.setProperty('--delay', `${Math.random() * 2}s`);
+        coin.style.setProperty('--end-x', `${-50 + Math.random() * 100}px`);
+        
+        container.appendChild(coin);
+    }
+    
+    document.body.appendChild(container);
+    setTimeout(() => container.remove(), 5000);
+}
+
     </script>
 </body>
 </html>

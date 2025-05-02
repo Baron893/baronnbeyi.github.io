@@ -794,6 +794,81 @@
                 width: 85vw;
             }
         }
+
+        .contact-floating {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 1000;
+        }
+
+        .contact-button {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #9d00ff, #5b65ff);
+        color: white;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 5px 20px rgba(157, 0, 255, 0.3);
+        font-size: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+        }
+
+        .contact-button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 8px 25px rgba(157, 0, 255, 0.4);
+        }
+
+        .contact-popup {
+        position: absolute;
+        bottom: 70px;
+        right: 0;
+        background: rgba(30, 30, 30, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 15px;
+        box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(157, 0, 255, 0.2);
+        display: none;
+        flex-direction: column;
+        gap: 12px;
+        min-width: 150px;
+        }
+
+        .contact-floating:hover .contact-popup,
+        .contact-popup:hover {
+        display: flex;
+        }
+
+        .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: white;
+        text-decoration: none;
+        padding: 8px 12px;
+        border-radius: 8px;
+        transition: all 0.2s;
+        }
+
+        .contact-item:hover {
+        background: rgba(157, 0, 255, 0.2);
+        }
+
+        .contact-item img {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+        }
+
+        .contact-item span {
+        font-size: 14px;
+        font-weight: 500;
+        }
     </style>
 </head>
 <body>
@@ -807,8 +882,8 @@
     <nav class="navbar">
         <a href="#" class="logo">BARON<span>BEYI</span></a>
         <div class="nav-links">
-            <a href="#ozel-secimler" class="nav-link">Özel Seçimler</a>
-            <a href="#vip-deneyimler" class="nav-link">VIP Deneyimler</a>
+            <a href="#vip-deneyimler" class="nav-link">VIP Sponsorlar</a>
+            <a href="#ozel-secimler" class="nav-link">Özel Sponsorlar</a>
             <a href="#istatistikler" class="nav-link">İstatistikler</a>
             <a href="#yorumlar" class="nav-link">Kullanıcı Yorumları</a>
             <span class="close-menu"><i class="fas fa-times"></i></span>
@@ -824,6 +899,56 @@
                 <button class="cta-button" id="explode-btn"><i class="fas fa-arrow-down"></i> Keşfetmeye Başla</button>
             </div>
         </section>
+
+
+        <section id="vip-deneyimler" class="section">
+            <div class="section-title">
+                <h2>VIP Deneyimler</h2>
+                <p>Yüksek limitli oyunlar ve özel VIP hizmetleri sunan seçkin bahis siteleri</p>
+            </div>
+            
+            <div class="cards-grid">
+                <!-- Site 1 -->
+                <div class="card" data-delay="0">
+                    <div class="card-badge">LIMITLESS</div>
+                    <div class="card-image">
+                        <img src="/api/placeholder/800/450" alt="InfinityBet">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">InfinityBet</h3>
+                        <p class="card-description">Sınırsız bahis limitleri ve kişisel butler hizmeti ile eşsiz bir VIP deneyimi.</p>
+                        <a href="#" class="card-button">Hemen Katıl <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Site 2 -->
+                <div class="card" data-delay="100">
+                    <div class="card-badge">ELITE</div>
+                    <div class="card-image">
+                        <img src="/api/placeholder/800/450" alt="RoyalVIP">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">RoyalVIP</h3>
+                        <p class="card-description">Özel jet organizasyonları ve lüks tatil çekilişleri ile premium üyelik.</p>
+                        <a href="#" class="card-button">Hemen Katıl <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Site 3 -->
+                <div class="card" data-delay="200">
+                    <div class="card-badge">BLACK</div>
+                    <div class="card-image">
+                        <img src="/api/placeholder/800/450" alt="BlackCard">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">BlackCard Club</h3>
+                        <p class="card-description">Davetiyeye özel üyelik ve 1M TL'ye kadar özel kredi imkanı.</p>
+                        <a href="#" class="card-button">Hemen Katıl <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         
         <section id="ozel-secimler" class="section">
             <div class="section-title">
@@ -872,55 +997,7 @@
                 </div>
             </div>
         </section>
-        
-        <!-- VIP Section -->
-        <section id="vip-deneyimler" class="section">
-            <div class="section-title">
-                <h2>VIP Deneyimler</h2>
-                <p>Yüksek limitli oyunlar ve özel VIP hizmetleri sunan seçkin bahis siteleri</p>
-            </div>
-            
-            <div class="cards-grid">
-                <!-- Site 1 -->
-                <div class="card" data-delay="0">
-                    <div class="card-badge">LIMITLESS</div>
-                    <div class="card-image">
-                        <img src="/api/placeholder/800/450" alt="InfinityBet">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">InfinityBet</h3>
-                        <p class="card-description">Sınırsız bahis limitleri ve kişisel butler hizmeti ile eşsiz bir VIP deneyimi.</p>
-                        <a href="#" class="card-button">Hemen Katıl <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                
-                <!-- Site 2 -->
-                <div class="card" data-delay="100">
-                    <div class="card-badge">ELITE</div>
-                    <div class="card-image">
-                        <img src="/api/placeholder/800/450" alt="RoyalVIP">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">RoyalVIP</h3>
-                        <p class="card-description">Özel jet organizasyonları ve lüks tatil çekilişleri ile premium üyelik.</p>
-                        <a href="#" class="card-button">Hemen Katıl <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                
-                <!-- Site 3 -->
-                <div class="card" data-delay="200">
-                    <div class="card-badge">BLACK</div>
-                    <div class="card-image">
-                        <img src="/api/placeholder/800/450" alt="BlackCard">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">BlackCard Club</h3>
-                        <p class="card-description">Davetiyeye özel üyelik ve 1M TL'ye kadar özel kredi imkanı.</p>
-                        <a href="#" class="card-button">Hemen Katıl <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </section>
+
         
         <!-- Statistics Section -->
         <section id="istatistikler" class="section">
@@ -931,15 +1008,15 @@
             
             <div class="stats-container">
                 <div class="stat-item" data-delay="0">
-                    <div class="stat-number" data-count="12">0</div>
-                    <div class="stat-label">Güvenilir Bahis Sitesi</div>
+                    <div class="stat-number" data-count="100">0</div>
+                    <div class="stat-label">Ziyaretçi sayı</div>
                 </div>
                 <div class="stat-item" data-delay="100">
                     <div class="stat-number" data-count="98">0</div>
                     <div class="stat-label">Memnun Müşteri (%)</div>
                 </div>
                 <div class="stat-item" data-delay="200">
-                    <div class="stat-number" data-count="5">0</div>
+                    <div class="stat-number" data-count="11">0</div>
                     <div class="stat-label">Yıllık Tecrübe</div>
                 </div>
                 <div class="stat-item" data-delay="300">
@@ -963,7 +1040,7 @@
                     </div>
                     <div class="testimonial-author">
                         <div class="testimonial-author-avatar">
-                            <img src="/api/placeholder/100/100" alt="Avatar">
+                            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Avatar">
                         </div>
                         <div class="testimonial-author-info">
                             <h4>Ahmet K.</h4>
@@ -978,7 +1055,7 @@
                     </div>
                     <div class="testimonial-author">
                         <div class="testimonial-author-avatar">
-                            <img src="/api/placeholder/100/100" alt="Avatar">
+                            <img src="https://randomuser.me/api/portraits/men/40.jpg" alt="Avatar">
                         </div>
                         <div class="testimonial-author-info">
                             <h4>Mehmet S.</h4>
@@ -993,7 +1070,7 @@
                     </div>
                     <div class="testimonial-author">
                         <div class="testimonial-author-avatar">
-                            <img src="/api/placeholder/100/100" alt="Avatar">
+                            <img src="https://randomuser.me/api/portraits/women/23.jpg" alt="Avatar">
                         </div>
                         <div class="testimonial-author-info">
                             <h4>Ayşe Y.</h4>
@@ -1008,7 +1085,7 @@
                     </div>
                     <div class="testimonial-author">
                         <div class="testimonial-author-avatar">
-                            <img src="/api/placeholder/100/100" alt="Avatar">
+                            <img src="https://randomuser.me/api/portraits/men/33.jpg" alt="Avatar">
                         </div>
                         <div class="testimonial-author-info">
                             <h4>Burak T.</h4>
@@ -1018,6 +1095,7 @@
                 </div>
             </div>
         </section>
+        
     </div>
     
     <!-- Back to Top Button -->
@@ -1028,7 +1106,71 @@
     <!-- Explosion Element -->
     <div class="explosion" id="explosion"></div>
 
+    <div class="contact-floating">
+        <button class="contact-button">
+          <i class="fas fa-comment-dots"></i>
+        </button>
+        <div class="contact-popup">
+          <a href="https://t.me/pirlobaskan" target="_blank" class="contact-item">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+            <span>Telegram</span>
+          </a>
+          <a href="https://teams.live.com/l/invite/FEA9Pxt14V0AcNypwI" target="_blank" class="contact-item">
+            <img src="https://static2.sharepointonline.com/files/fabric/assets/brand-icons/product/svg/teams_48x1.svg" alt="Teams">
+            <span>Teams</span>
+          </a>
+        </div>
+      </div>
+
     <script>
+
+        // JS Kısmı (mobil dokunmatik destek için)
+        document.querySelector('.contact-button').addEventListener('click', function() {
+        const popup = document.querySelector('.contact-popup');
+        popup.style.display = popup.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Dışarı tıklayınca kapatma
+        document.addEventListener('click', function(e) {
+        if (!e.target.closest('.contact-floating')) {
+            document.querySelector('.contact-popup').style.display = 'none';
+        }
+        });
+
+        // Ziyaretçi sayacı
+        let visitorCount = 100; // Başlangıç değeri
+        const visitorElement = document.querySelector('.stat-number[data-count="12"]');
+
+        // Saat başı kontrolü
+        function checkHourlyUpdate() {
+            const now = new Date();
+            const currentMinutes = now.getMinutes();
+            const currentSeconds = now.getSeconds();
+            
+            // Bir sonraki saat başına kalan milisaniye
+            const msUntilNextHour = (60 - currentMinutes) * 60000 - currentSeconds * 1000;
+            
+            setTimeout(function() {
+                updateVisitorCounter(); // Saat başında çalıştır
+                setInterval(updateVisitorCounter, 3600000); // Sonra her saatte bir tekrarla
+            }, msUntilNextHour);
+        }
+
+        // Sayacı güncelleme fonksiyonu
+        function updateVisitorCounter() {
+            visitorCount += 10;
+            visitorElement.textContent = visitorCount;
+            visitorElement.setAttribute('data-count', visitorCount);
+            
+            // Sunucuya veya localStorage'a kaydetmek isterseniz:
+            // localStorage.setItem('visitorCount', visitorCount.toString());
+        }
+
+        // Sayfa yüklendiğinde kontrolü başlat
+        window.addEventListener('load', function() {
+            // localStorage'dan eski değeri okumayacağız (yenilemede artmasın diye)
+            checkHourlyUpdate();
+        });
         // Navbar Scroll Effect
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar');
